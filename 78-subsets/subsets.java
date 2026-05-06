@@ -9,8 +9,8 @@ class Solution {
         res.add(new ArrayList<>(temp));
         for(int i=idx;i<nums.length;i++){
             temp.add(nums[i]);
-            Backtrack(i+1,nums);
-            temp.remove(temp.size()-1);
+            Backtrack(i+1,nums);//recursive
+            temp.remove(temp.size()-1);//undo//backtrack
         }
     }
 }
