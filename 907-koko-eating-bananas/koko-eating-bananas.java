@@ -1,23 +1,24 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int l=1;
-        int r=1000000000;
-        while(l<=r){
-            int m=l+(r-l)/2;
-            if(isOk(piles,m,h)){
-                r=m-1;
+        int n = piles.length;
+        long total = 0;
+        for (int num : piles) {
+            total += num;
+        }
+        int start = (int)((total - 1) / h) + 1;
+        int end = (int)((total - n) / (h - n + 1)) + 1;
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            int time = 0;
+            for (int num : piles) {
+                time += (num - 1) / mid + 1;
             }
-            else{
-                l=m+1;
+            if (time > h) {
+                start = mid + 1;
+            } else {
+                end = mid;
             }
         }
-        return l;
-    }
-    boolean isOk(int piles[],int k,int h){
-        int th=0;
-        for(int n:piles){
-            th+=Math.ceil((double)n/k);
-        }
-        return th<=h;
+        return start;
     }
 }
